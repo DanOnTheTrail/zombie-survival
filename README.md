@@ -33,3 +33,19 @@ A Game includes one or more Survivors, as well as other Game elements that are o
 - A Game can have Survivors added to it at any time.
 	- Survivor Names within a Game must be unique.
 - A Game ends immediately if all of its Survivors have died.
+
+## Step Four : Experience and Levels
+
+As Survivors overcome zombies, they gain experience.
+
+- Each Survivor begins with 0 **Experience**.
+- Each Survivor has a current **Level**.
+- Each Survivor begins at Level Blue.
+- Each time the Survivor kills a zombie, they can 1 Experience.
+- Levels consist of (in order): Blue, Yellow, Orange, Red.
+	- When a Survivor exceeds 6 Experience, they advance ("level up") to level Yellow.
+	- When a Survivor exceeds 18 Experience, they advance to level Orange.
+	- When a Survivor exceeds 42 Experience, they advance to level Red.
+- A Game has a Level (Level here is identical to Level for a Survivor).
+- A Game begins at Level Blue.
+- A Game Level is always equal to the level of the highest living Survivor's Level.
