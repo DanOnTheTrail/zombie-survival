@@ -49,3 +49,16 @@ As Survivors overcome zombies, they gain experience.
 - A Game has a Level (Level here is identical to Level for a Survivor).
 - A Game begins at Level Blue.
 - A Game Level is always equal to the level of the highest living Survivor's Level.
+
+## Step Five : Output
+
+The Game includes a running history of events that have taken place as it has been played. Managing game history is a Game responsibility.
+
+- A Game's **History** begins by recording the time the Game began.
+- A Game's History notes that a Survivor has been added to the Game.
+- A Game's History notes that a Survivor acquires a piece of Equipment.
+- A Game's History notes that a Survivor is wounded.
+- A Game's History notes that a Survivor dies.
+- A Game's History notes that a Survivor levels up.
+- A Game's History notes that the Game Level changes.
+- A Game's History notes that the Game has ended when the last Survivor dies.
