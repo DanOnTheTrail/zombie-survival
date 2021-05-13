@@ -24,3 +24,12 @@ Survivors can use equipment to help them in their mission.
 	- Examples of Equipment: "Baseball bat", "Frying pan", "Katana", "Pistol", "Bottled Water", "Molotov"
 - Each Wound a Survivor receives reduces the number of pieces of Equipment they can carry by 1.
 	- If the Survivor has more Equipment than their new capacity, choose a piece to discard (implement however you like).
+
+## Step Three : The Game
+
+A Game includes one or more Survivors, as well as other Game elements that are outside the scope of this kata.
+
+- A **Game** begins with 0 Survivors.
+- A Game can have Survivors added to it at any time.
+	- Survivor Names within a Game must be unique.
+- A Game ends immediately if all of its Survivors have died.
