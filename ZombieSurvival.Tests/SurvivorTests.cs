@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 using ZombieSurvival;
 using AutoFixture;
@@ -42,7 +41,7 @@ namespace ZombieSurvial.Tests
             
             var result = survivor.Alive;
 
-            Assert.Equal(true, result);
+            Assert.True(result);
         }
 
         [Fact]
@@ -53,7 +52,7 @@ namespace ZombieSurvial.Tests
             
             var result = survivor.Alive;
 
-            Assert.Equal(false, result);
+            Assert.False(result);
         }
 
         [Fact]
@@ -64,7 +63,7 @@ namespace ZombieSurvial.Tests
             
             var result = survivor.Alive;
 
-            Assert.Equal(false, result);
+            Assert.False(result);
         }
 
         [Fact]
