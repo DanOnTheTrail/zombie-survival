@@ -1,6 +1,7 @@
 using Xunit;
 using ZombieSurvival;
 using AutoFixture;
+using System.Linq;
 
 namespace ZombieSurvial.Tests
 {
@@ -74,6 +75,45 @@ namespace ZombieSurvial.Tests
             var result = survivor.Actions;
 
             Assert.Equal(3, result);
+        }
+
+        [Fact]
+        public void SurvivorCanHoldItemInHand()
+        {
+            var survivor = new Survivor(fixture.Create<string>());
+            survivor.Hold("hammer");
+
+            var result = survivor.GetItemsInHand();
+
+            Assert.Contains("hammer", result);
+        }
+
+        [Fact]
+        public void SurvivorCanHoldTwoItemsInHand()
+        {
+            var survivor = new Survivor(fixture.Create<string>());
+            survivor.Hold("hammer");
+            survivor.Hold("Frying Pan");
+
+            var result = survivor.GetItemsInHand();
+
+            Assert.Contains("hammer", result);
+            Assert.Contains("Frying Pan", result);
+        }
+        
+        [Fact]
+        public void SurvivorCannotHoldMoreThanTwoItemsInHand()
+        {
+            var survivor = new Survivor(fixture.Create<string>());
+            survivor.Hold("hammer");
+            survivor.Hold("Frying Pan");
+            survivor.Hold("Can O Beans");
+
+            var result = survivor.GetItemsInHand();
+
+            Assert.Equal(2, result.Count);
+            Assert.Contains("hammer", result);
+            Assert.Contains("Frying Pan", result);
         }
     }
 }
