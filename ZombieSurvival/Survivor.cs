@@ -9,11 +9,13 @@ namespace ZombieSurvival
         public int Wounds { get; private set; }
         public int Actions { get; } = 3;
         private IList<string> ItemsInHand;
+        private IList<string> ItemsInReserve; 
 
         public Survivor(string name)
         {
             Name = name;
             ItemsInHand = new List<string>();
+            ItemsInReserve = new List<string>();
         }
 
         public void Maim(int wounds)
@@ -32,6 +34,19 @@ namespace ZombieSurvival
         public IList<string> GetItemsInHand()
         {
             return ItemsInHand;
+        }
+
+        public IList<string> GetItemsInReserve()
+        {
+            return ItemsInReserve;
+        }
+
+        public void Stash(string item)
+        {
+            if (ItemsInReserve.Count < 3)
+            {
+                ItemsInReserve.Add(item);
+            }
         }
     }
 }

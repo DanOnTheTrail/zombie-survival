@@ -115,5 +115,36 @@ namespace ZombieSurvial.Tests
             Assert.Contains("hammer", result);
             Assert.Contains("Frying Pan", result);
         }
+
+        [Fact]
+        public void SurvivorCanHoldItemsInReserve(){
+            var sut = new Survivor(fixture.Create<string>());
+            var fakeItem = fixture.Create<string>();
+
+            sut.Stash(fakeItem);
+            
+            var result = sut.GetItemsInReserve();
+            Assert.Equal(1, result.Count);
+            Assert.Contains(fakeItem, result);
+        }
+
+        [Fact]
+        public void SurvivorCanHoldUpToThreeItemsInReserve()
+        {
+            var sut = new Survivor(fixture.Create<string>());
+            var fakeItemOne = fixture.Create<string>();
+            var fakeItemTwo = fixture.Create<string>();
+            var fakeItemThree = fixture.Create<string>();
+            var extraItem = fixture.Create<string>();
+            sut.Stash(fakeItemOne);
+            sut.Stash(fakeItemTwo);
+            sut.Stash(fakeItemThree);
+
+            sut.Stash(extraItem);
+            
+            var result = sut.GetItemsInReserve();
+            Assert.Equal(3, result.Count);
+            Assert.DoesNotContain(extraItem, result);
+        }
     }
 }
