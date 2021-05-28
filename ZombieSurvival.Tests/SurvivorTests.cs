@@ -117,34 +117,60 @@ namespace ZombieSurvial.Tests
         }
 
         [Fact]
-        public void SurvivorCanHoldItemsInReserve(){
-            var sut = new Survivor(fixture.Create<string>());
-            var fakeItem = fixture.Create<string>();
-
-            sut.Stash(fakeItem);
-            
-            var result = sut.GetItemsInReserve();
-            Assert.Equal(1, result.Count);
-            Assert.Contains(fakeItem, result);
-        }
-
-        [Fact]
         public void SurvivorCanHoldUpToThreeItemsInReserve()
         {
             var sut = new Survivor(fixture.Create<string>());
-            var fakeItemOne = fixture.Create<string>();
-            var fakeItemTwo = fixture.Create<string>();
-            var fakeItemThree = fixture.Create<string>();
-            var extraItem = fixture.Create<string>();
-            sut.Stash(fakeItemOne);
-            sut.Stash(fakeItemTwo);
-            sut.Stash(fakeItemThree);
-
-            sut.Stash(extraItem);
+            var reserveItems = fixture.CreateMany<string>(count: 4);
             
+            reserveItems.ToList().ForEach(item => { sut.Stash(item); });
+
             var result = sut.GetItemsInReserve();
             Assert.Equal(3, result.Count);
-            Assert.DoesNotContain(extraItem, result);
+        }
+
+        [Fact]
+        public void SurvivorWithAWoundCanOnlyHoldFourItems(){
+            var sut = new Survivor(fixture.Create<string>());
+            var handItems = fixture.CreateMany<string>(count: 2);
+            handItems.ToList().ForEach(item => { sut.Hold(item); });
+            var reserveItems = fixture.CreateMany<string>(count: 3);
+            reserveItems.ToList().ForEach(item => { sut.Stash(item); });
+            
+            sut.Maim(1);
+
+            var result = sut.GetItemsInHand().Count + sut.GetItemsInReserve().Count;
+            Assert.Equal(4, result);
+        }
+
+        [Fact]
+        public void SurvivorWithAWoundCannotPickUpAFifthItem()
+        {
+            var sut = new Survivor(fixture.Create<string>());
+            var handItems = fixture.CreateMany<string>(count: 2);
+            handItems.ToList().ForEach(item => { sut.Hold(item); });
+            var reserveItems = fixture.CreateMany<string>(count: 3);
+            reserveItems.ToList().ForEach(item => { sut.Stash(item); });
+            sut.Maim(1);
+
+            sut.Stash(fixture.Create<string>());
+
+            var result = sut.GetItemsInHand().Count + sut.GetItemsInReserve().Count;
+            Assert.Equal(4, result);
+        }
+
+        [Fact]
+        public void Foo()
+        {
+            var sut = new Survivor(fixture.Create<string>());
+            var handItems = fixture.CreateMany<string>(count: 2);
+            handItems.ToList().ForEach(item => { sut.Hold(item); });
+            sut.Stash(fixture.Create<string>()); 
+            sut.Maim(1);
+
+            sut.Stash(fixture.Create<string>());
+
+            var result = sut.GetItemsInHand().Count + sut.GetItemsInReserve().Count;
+            Assert.Equal(4, result);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ZombieSurvival
 {
@@ -10,17 +11,25 @@ namespace ZombieSurvival
         public int Actions { get; } = 3;
         private IList<string> ItemsInHand;
         private IList<string> ItemsInReserve; 
+        private int MaxReserveItemsBase;
+        private int MaxReserveItems => MaxReserveItemsBase - Wounds;
 
         public Survivor(string name)
         {
             Name = name;
             ItemsInHand = new List<string>();
             ItemsInReserve = new List<string>();
+            MaxReserveItemsBase = 3;
         }
 
         public void Maim(int wounds)
         {
             Wounds += wounds;
+
+            if ((ItemsInHand.Count + ItemsInReserve.Count) == 5) 
+            {
+                ItemsInReserve.Remove(ItemsInReserve.Last());
+            }
         }
 
         public void Hold(string item)
@@ -43,7 +52,7 @@ namespace ZombieSurvival
 
         public void Stash(string item)
         {
-            if (ItemsInReserve.Count < 3)
+            if (ItemsInReserve.Count < MaxReserveItems)
             {
                 ItemsInReserve.Add(item);
             }
