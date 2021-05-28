@@ -14,3 +14,13 @@ The zombie apocalypse has occurred. You must model a Survivor in this harsh worl
 - Each Survivor begins with 0 **Wounds**.
 - A Survivor who receives 2 Wounds dies immediately; additional Wounds are ignored.
 - Each Survivor starts with the ability to perform 3 Actions per turn.
+
+## Step Two : Equipment
+
+Survivors can use equipment to help them in their mission.
+
+- Each Survivor can carry up to 5 pieces of **Equipment**. 
+	- Up to 2 pieces of carried Equipment are "In Hand"; the rest are "In Reserve".
+	- Examples of Equipment: "Baseball bat", "Frying pan", "Katana", "Pistol", "Bottled Water", "Molotov"
+- Each Wound a Survivor receives reduces the number of pieces of Equipment they can carry by 1.
+	- If the Survivor has more Equipment than their new capacity, choose a piece to discard (implement however you like).
