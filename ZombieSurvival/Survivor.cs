@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,11 +8,14 @@ namespace ZombieSurvival
     {
         public bool Alive { get => Wounds < 2; }
         public string Name { get; private set; }
+        public int Experience { get; private set; } = 0;
         public int Wounds { get; private set; }
         public int Actions { get; } = 3;
         private IList<string> ItemsInHand;
         private IList<string> ItemsInReserve; 
         private int MaxReserveItemsBase;
+        public Level Level { get; private set; } = Level.Blue;
+
         private int MaxReserveItems => MaxReserveItemsBase - Wounds;
 
         public Survivor(string name)
@@ -73,6 +77,11 @@ namespace ZombieSurvival
         public override int GetHashCode()
         {
             return Name.GetHashCode();
+        }
+
+        public int Kill()
+        {
+            return 1;
         }
     }
 }

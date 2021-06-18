@@ -159,7 +159,7 @@ namespace ZombieSurvial.Tests
         }
 
         [Fact]
-        public void Foo()
+        public void WoundedSurvivorCanHoldOneLessItem()
         {
             var sut = new Survivor(fixture.Create<string>());
             var handItems = fixture.CreateMany<string>(count: 2);
@@ -172,5 +172,36 @@ namespace ZombieSurvial.Tests
             var result = sut.GetItemsInHand().Count + sut.GetItemsInReserve().Count;
             Assert.Equal(4, result);
         }
+
+        [Fact]
+        public void SurvivorStartsWithZeroExperience()
+        {
+            var sut = new Survivor(fixture.Create<string>());
+
+            var result = sut.Experience;
+
+            Assert.Equal(0,  result);
+        }
+
+        [Fact]
+        public void SurvirorStartsAtLevelBlue()
+        {
+            var sut = new Survivor(fixture.Create<string>());
+
+            var result = sut.Level;
+
+            Assert.Equal(Level.Blue,  result);
+        }
+        [Fact]
+        public void foo()
+        {
+            var sut = new Survivor(fixture.Create<string>());
+
+            var experience = sut.Experience;
+            var result = sut.Kill();
+
+            Assert.Equal(experience + 1, result);
+        }
+
     }
 }
