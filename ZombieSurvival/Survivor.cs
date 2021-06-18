@@ -57,5 +57,22 @@ namespace ZombieSurvival
                 ItemsInReserve.Add(item);
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if (!(obj is Survivor))
+            {
+                return false;
+            }
+            return (this.Name == ((Survivor)obj).Name);
+        }
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
     }
 }
