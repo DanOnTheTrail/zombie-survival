@@ -183,25 +183,25 @@ namespace ZombieSurvial.Tests
             Assert.Equal(0,  result);
         }
 
-        [Fact]
-        public void SurvirorStartsAtLevelBlue()
+        [Theory]
+        [InlineData(0, Level.Blue)]
+        [InlineData(5, Level.Blue)]
+        [InlineData(6, Level.Yellow)]
+        [InlineData(17, Level.Yellow)]
+        [InlineData(18, Level.Orange)]
+        [InlineData(41, Level.Orange)]
+        [InlineData(42, Level.Red)]
+        public void SurvivorGainsALevelWithExperience(int xp, Level level)
         {
             var sut = new Survivor(fixture.Create<string>());
 
-            var result = sut.Level;
+            for (int i = 0; i < xp; i++)
+            {
+                sut.Kill();
+            }
 
-            Assert.Equal(Level.Blue,  result);
+            Assert.Equal(level, sut.Level);
+            Assert.Equal(xp, sut.Experience);
         }
-        [Fact]
-        public void foo()
-        {
-            var sut = new Survivor(fixture.Create<string>());
-
-            var experience = sut.Experience;
-            var result = sut.Kill();
-
-            Assert.Equal(experience + 1, result);
-        }
-
     }
 }

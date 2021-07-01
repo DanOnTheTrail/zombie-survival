@@ -14,7 +14,17 @@ namespace ZombieSurvival
         private IList<string> ItemsInHand;
         private IList<string> ItemsInReserve; 
         private int MaxReserveItemsBase;
-        public Level Level { get; private set; } = Level.Blue;
+        public Level Level 
+        { 
+            get => Experience switch
+                {
+                    (>= 0) and (<= 5) => Level.Blue,
+                    (>= 6) and (<= 17) => Level.Yellow,
+                    (>= 18) and (<= 41) => Level.Orange,
+                    (>= 42) => Level.Red,
+                    (<0) => throw new ArgumentOutOfRangeException(),
+                };
+        }
 
         private int MaxReserveItems => MaxReserveItemsBase - Wounds;
 
@@ -79,9 +89,9 @@ namespace ZombieSurvival
             return Name.GetHashCode();
         }
 
-        public int Kill()
+        public void Kill()
         {
-            return 1;
+            Experience++;
         }
     }
 }
