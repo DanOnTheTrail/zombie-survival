@@ -7,6 +7,18 @@ namespace ZombieSurvival
     public class Game
     {
         private ISet<Survivor> survivors;
+        public Level Level 
+        {
+            get 
+            {
+                if (survivors.Count == 0) {
+                    return Level.Blue;
+                } else {
+                    return survivors.OrderBy(s => s.Experience).Last(s => s.Alive).Level;
+                }
+            }
+        }
+
         public bool Running
         {
             get => survivors.Count == 0 || survivors.Any(s => s.Alive);
