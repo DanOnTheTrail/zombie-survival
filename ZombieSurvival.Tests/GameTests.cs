@@ -1,7 +1,8 @@
 using Xunit;
 using ZombieSurvival;
 using AutoFixture;
-
+using System;
+using System.Linq;
 
 namespace ZombieSurvial.Tests
 {
@@ -128,6 +129,16 @@ namespace ZombieSurvial.Tests
 
             var result = sut.Level;
             Assert.Equal(Level.Yellow, result);
+        }
+
+        [Fact]
+        public void GameHistoryLogsGameStartTime() 
+        {
+            var sut = new Game();
+            
+            var result = sut.History.FirstOrDefault();
+            Assert.Equal("Game Begin", result.Name);
+            Assert.IsType<DateTime>(result.Time);
         }
     }
 

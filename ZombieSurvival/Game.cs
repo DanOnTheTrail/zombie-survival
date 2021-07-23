@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,10 +26,14 @@ namespace ZombieSurvival
         }
 
         public int SurvivorCount { get => survivors.Count; }
+        public Stack<History> History { get; set; }
 
         public Game()
         {
             survivors = new HashSet<Survivor>();
+            History = new Stack<History>();
+
+            History.Push(new History { Name = "Game Begin", Time = DateTime.Now });
         }
 
         public void FoundSurvivor(Survivor survivor)
