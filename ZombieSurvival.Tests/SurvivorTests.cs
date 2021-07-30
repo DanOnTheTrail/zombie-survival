@@ -17,9 +17,9 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurviorHasName()
         {
-            var survivor = new Survivor("Bob");
+            var sut = SutFactory("Bob");
 
-            var result = survivor.Name;
+            var result = sut.Name;
 
             Assert.Equal("Bob", result);
         }
@@ -27,9 +27,9 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurviorBeginsWithZeroWounds()
         {
-            var survivor = new Survivor(fixture.Create<string>());
+            var sut = SutFactory();
             
-            var result = survivor.Wounds;
+            var result = sut.Wounds;
 
             Assert.Equal(0, result);
         }
@@ -37,10 +37,10 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurviorIsAliveWithOneWound()
         {
-            var survivor = new Survivor(fixture.Create<string>());
-            survivor.Maim(1);
+            var sut = SutFactory();
+            sut.Maim(1);
             
-            var result = survivor.Alive;
+            var result = sut.Alive;
 
             Assert.True(result);
         }
@@ -48,10 +48,10 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurviorIsDeadWithTwoWounds()
         {
-            var survivor = new Survivor(fixture.Create<string>());
-            survivor.Maim(2);
+            var sut = SutFactory();
+            sut.Maim(2);
             
-            var result = survivor.Alive;
+            var result = sut.Alive;
 
             Assert.False(result);
         }
@@ -59,10 +59,10 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurviorIsDeadWithThreeWounds()
         {
-            var survivor = new Survivor(fixture.Create<string>());
-            survivor.Maim(3);
+            var sut = SutFactory();
+            sut.Maim(3);
             
-            var result = survivor.Alive;
+            var result = sut.Alive;
 
             Assert.False(result);
         }
@@ -70,9 +70,9 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurviorStartsWithThreeActions()
         {
-            var survivor = new Survivor(fixture.Create<string>());
+            var sut = SutFactory();
 
-            var result = survivor.Actions;
+            var result = sut.Actions;
 
             Assert.Equal(3, result);
         }
@@ -80,10 +80,10 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurvivorCanHoldItemInHand()
         {
-            var survivor = new Survivor(fixture.Create<string>());
-            survivor.Hold("hammer");
+            var sut = SutFactory();
+            sut.Hold("hammer");
 
-            var result = survivor.GetItemsInHand();
+            var result = sut.GetItemsInHand();
 
             Assert.Contains("hammer", result);
         }
@@ -91,11 +91,11 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurvivorCanHoldTwoItemsInHand()
         {
-            var survivor = new Survivor(fixture.Create<string>());
-            survivor.Hold("hammer");
-            survivor.Hold("Frying Pan");
+            var sut = SutFactory();
+            sut.Hold("hammer");
+            sut.Hold("Frying Pan");
 
-            var result = survivor.GetItemsInHand();
+            var result = sut.GetItemsInHand();
 
             Assert.Contains("hammer", result);
             Assert.Contains("Frying Pan", result);
@@ -104,12 +104,12 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurvivorCannotHoldMoreThanTwoItemsInHand()
         {
-            var survivor = new Survivor(fixture.Create<string>());
-            survivor.Hold("hammer");
-            survivor.Hold("Frying Pan");
-            survivor.Hold("Can O Beans");
+            var sut = SutFactory();
+            sut.Hold("hammer");
+            sut.Hold("Frying Pan");
+            sut.Hold("Can O Beans");
 
-            var result = survivor.GetItemsInHand();
+            var result = sut.GetItemsInHand();
 
             Assert.Equal(2, result.Count);
             Assert.Contains("hammer", result);
@@ -119,7 +119,7 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurvivorCanHoldUpToThreeItemsInReserve()
         {
-            var sut = new Survivor(fixture.Create<string>());
+            var sut = SutFactory();
             var reserveItems = fixture.CreateMany<string>(count: 4);
             
             reserveItems.ToList().ForEach(item => { sut.Stash(item); });
@@ -130,7 +130,7 @@ namespace ZombieSurvial.Tests
 
         [Fact]
         public void SurvivorWithAWoundCanOnlyHoldFourItems(){
-            var sut = new Survivor(fixture.Create<string>());
+            var sut = SutFactory();
             var handItems = fixture.CreateMany<string>(count: 2);
             handItems.ToList().ForEach(item => { sut.Hold(item); });
             var reserveItems = fixture.CreateMany<string>(count: 3);
@@ -145,7 +145,7 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurvivorWithAWoundCannotPickUpAFifthItem()
         {
-            var sut = new Survivor(fixture.Create<string>());
+            var sut = SutFactory();
             var handItems = fixture.CreateMany<string>(count: 2);
             handItems.ToList().ForEach(item => { sut.Hold(item); });
             var reserveItems = fixture.CreateMany<string>(count: 3);
@@ -161,7 +161,7 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void WoundedSurvivorCanHoldOneLessItem()
         {
-            var sut = new Survivor(fixture.Create<string>());
+            var sut = SutFactory();
             var handItems = fixture.CreateMany<string>(count: 2);
             handItems.ToList().ForEach(item => { sut.Hold(item); });
             sut.Stash(fixture.Create<string>()); 
@@ -176,7 +176,7 @@ namespace ZombieSurvial.Tests
         [Fact]
         public void SurvivorStartsWithZeroExperience()
         {
-            var sut = new Survivor(fixture.Create<string>());
+            var sut = SutFactory();
 
             var result = sut.Experience;
 
@@ -193,7 +193,7 @@ namespace ZombieSurvial.Tests
         [InlineData(42, Level.Red)]
         public void SurvivorGainsALevelWithExperience(int xp, Level level)
         {
-            var sut = new Survivor(fixture.Create<string>());
+            var sut = SutFactory();
 
             for (int i = 0; i < xp; i++)
             {
@@ -202,6 +202,18 @@ namespace ZombieSurvial.Tests
 
             Assert.Equal(level, sut.Level);
             Assert.Equal(xp, sut.Experience);
+        }
+
+        public Survivor SutFactory(string name = null, Game game = null){
+            if (string.IsNullOrEmpty(name)) {
+                name = fixture.Create<string>();
+            }
+
+            if(game == null) {
+                game = new Game();
+            }
+
+            return new Survivor(name, game);
         }
     }
 }

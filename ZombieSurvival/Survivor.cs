@@ -6,6 +6,7 @@ namespace ZombieSurvival
 {
     public class Survivor
     {
+        public Game Game { get; }
         public bool Alive { get => Wounds < 2; }
         public string Name { get; private set; }
         public int Experience { get; private set; } = 0;
@@ -28,12 +29,13 @@ namespace ZombieSurvival
 
         private int MaxReserveItems => MaxReserveItemsBase - Wounds;
 
-        public Survivor(string name)
+        public Survivor(string name, Game game)
         {
             Name = name;
             ItemsInHand = new List<string>();
             ItemsInReserve = new List<string>();
             MaxReserveItemsBase = 3;
+            Game = game;
         }
 
         public void Maim(int wounds)
@@ -50,6 +52,11 @@ namespace ZombieSurvival
         {
             if (ItemsInHand.Count < 2)
             {
+                if (Game != null)
+                {
+                    Game.History.Push(new History() { Name = "Survivor picked up an item", Time = DateTime.Now });
+                }
+
                 ItemsInHand.Add(item);
             }
         }

@@ -7,38 +7,39 @@ namespace ZombieSurvival
 
     public class Game
     {
-        private ISet<Survivor> survivors;
+        public ISet<Survivor> Survivors { get; }
         public Level Level 
         {
             get 
             {
-                if (survivors.Count == 0) {
+                if (Survivors.Count == 0) {
                     return Level.Blue;
                 } else {
-                    return survivors.OrderBy(s => s.Experience).Last(s => s.Alive).Level;
+                    return Survivors.OrderBy(s => s.Experience).Last(s => s.Alive).Level;
                 }
             }
         }
 
         public bool Running
         {
-            get => survivors.Count == 0 || survivors.Any(s => s.Alive);
+            get => Survivors.Count == 0 || Survivors.Any(s => s.Alive);
         }
 
-        public int SurvivorCount { get => survivors.Count; }
+        public int SurvivorCount { get => Survivors.Count; }
         public Stack<History> History { get; set; }
 
         public Game()
         {
-            survivors = new HashSet<Survivor>();
+            Survivors = new HashSet<Survivor>();
             History = new Stack<History>();
 
             History.Push(new History { Name = "Game Begin", Time = DateTime.Now });
         }
 
-        public void FoundSurvivor(Survivor survivor)
-        {                
-            survivors.Add(survivor);
+        public void FoundSurvivor(string name)
+        {
+            var survivor = new Survivor(name, this);
+            Survivors.Add(survivor);
         }
     }
 }
