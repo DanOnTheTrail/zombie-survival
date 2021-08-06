@@ -41,10 +41,16 @@ namespace ZombieSurvival
         public void Maim(int wounds)
         {
             Wounds += wounds;
+            LogHistory(HistoryConstants.SurvivorMaimed);
 
-            if ((ItemsInHand.Count + ItemsInReserve.Count) == 5) 
+            if ((ItemsInHand.Count + ItemsInReserve.Count) == 5)
             {
                 ItemsInReserve.Remove(ItemsInReserve.Last());
+            }
+
+            if (!Alive)
+            {
+                LogHistory(HistoryConstants.SurvivorDead);
             }
         }
 
@@ -52,10 +58,7 @@ namespace ZombieSurvival
         {
             if (ItemsInHand.Count < 2)
             {
-                if (Game != null)
-                {
-                    Game.History.Push(new History() { Name = "Survivor picked up an item", Time = DateTime.Now });
-                }
+                LogHistory(HistoryConstants.SurvivorPickedUpItem);
 
                 ItemsInHand.Add(item);
             }
@@ -99,6 +102,11 @@ namespace ZombieSurvival
         public void Kill()
         {
             Experience++;
+        }
+
+        private void LogHistory(string message)
+        {
+            Game.History.Push(new History() { Name = message, Time = DateTime.Now });
         }
     }
 }

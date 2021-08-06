@@ -148,7 +148,38 @@ namespace ZombieSurvial.Tests
             sut.Survivors.First().Hold("bar");
 
             var result = sut.History.Pop();
-            Assert.Equal("Survivor picked up an item", result.Name);
+            Assert.Equal(HistoryConstants.SurvivorPickedUpItem, result.Name);
+        }
+
+        [Fact]
+        public void GameHistoryLogsWhenPlayerIsMaimed(){
+            var sut = new Game();
+            sut.FoundSurvivor(fixture.Create<string>());
+
+            sut.Survivors.First().Maim(1);
+
+            var result = sut.History.Pop();
+            Assert.Equal(HistoryConstants.SurvivorMaimed, result.Name);
+        }
+        
+        [Fact]
+        public void GameHistoryLogsWhenPlayerIsAddedToTheGame(){
+            var sut = new Game();
+            
+            sut.FoundSurvivor(fixture.Create<string>());
+
+            var result = sut.History.Pop();
+            Assert.Equal(HistoryConstants.SurvivorFound, result.Name);
+        }
+        public void GameHistoryLogsWhenPlayerIsDead(){
+            var sut = new Game();
+            
+            sut.FoundSurvivor(fixture.Create<string>());
+
+            sut.Survivors.First().Maim(3);
+
+            var result = sut.History.Pop();
+            Assert.Equal(HistoryConstants.SurvivorDead, result.Name);
         }
     }
 

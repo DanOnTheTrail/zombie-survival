@@ -40,6 +40,7 @@ namespace ZombieSurvival
         {
             var survivor = new Survivor(name, this);
             Survivors.Add(survivor);
+            History.Push(new History { Name = HistoryConstants.SurvivorFound, Time = DateTime.Now });
         }
     }
 }
