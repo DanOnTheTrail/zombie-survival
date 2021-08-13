@@ -101,7 +101,17 @@ namespace ZombieSurvival
 
         public void Kill()
         {
+            var currentSurvivorLevel = Level;
+            var currentGameLevel = Game.Level;
             Experience++;
+            if (Level != currentSurvivorLevel)
+            {
+                LogHistory(HistoryConstants.SurvivorLevelsUp);
+            }
+            if (Game.Level != currentGameLevel)
+            {
+                LogHistory(HistoryConstants.GameLevelsUp);
+            }
         }
 
         private void LogHistory(string message)

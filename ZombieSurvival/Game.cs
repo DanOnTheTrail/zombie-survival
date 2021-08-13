@@ -42,5 +42,6 @@ namespace ZombieSurvival
             Survivors.Add(survivor);
             History.Push(new History { Name = HistoryConstants.SurvivorFound, Time = DateTime.Now });
         }
+        
     }
 }
