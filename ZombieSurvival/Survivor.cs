@@ -15,6 +15,7 @@ namespace ZombieSurvival
         private IList<string> ItemsInHand;
         private IList<string> ItemsInReserve; 
         private int MaxReserveItemsBase;
+        
         public Level Level 
         { 
             get => Experience switch
@@ -51,6 +52,10 @@ namespace ZombieSurvival
             if (!Alive)
             {
                 LogHistory(HistoryConstants.SurvivorDead);
+
+                if (!Game.Running) {
+                    LogHistory(HistoryConstants.GameOver);
+                }
             }
         }
 
@@ -88,12 +93,14 @@ namespace ZombieSurvival
             {
                 return false;
             }
+
             if (!(obj is Survivor))
             {
                 return false;
             }
             return (this.Name == ((Survivor)obj).Name);
         }
+
         public override int GetHashCode()
         {
             return Name.GetHashCode();
@@ -104,17 +111,19 @@ namespace ZombieSurvival
             var currentSurvivorLevel = Level;
             var currentGameLevel = Game.Level;
             Experience++;
+
             if (Level != currentSurvivorLevel)
             {
                 LogHistory(HistoryConstants.SurvivorLevelsUp);
             }
+
             if (Game.Level != currentGameLevel)
             {
                 LogHistory(HistoryConstants.GameLevelsUp);
             }
         }
 
-        private void LogHistory(string message)
+        private void LogHistory(string message) 
         {
             Game.History.Push(new History() { Name = message, Time = DateTime.Now });
         }

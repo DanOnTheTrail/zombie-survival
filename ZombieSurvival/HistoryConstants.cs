@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace ZombieSurvival
 {
     public static class HistoryConstants
@@ -9,8 +7,7 @@ namespace ZombieSurvival
         public static string SurvivorFound = "A survivor has been added to the Game";
         public static string SurvivorDead = "A survivor has died";
         public static string SurvivorLevelsUp = "A survivor has leveled up";
-
         public static string GameLevelsUp = "The game has leveled up";
+        public static string GameOver = "Game Over!";
     }
 }
-

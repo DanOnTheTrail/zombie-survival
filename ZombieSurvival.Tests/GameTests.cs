@@ -180,6 +180,7 @@ namespace ZombieSurvial.Tests
 
             sut.Survivors.First().Maim(3);
 
+            sut.History.Pop();
             var result = sut.History.Pop();
             Assert.Equal(HistoryConstants.SurvivorDead, result.Name);
         }
@@ -213,10 +214,8 @@ namespace ZombieSurvial.Tests
             Assert.Equal(HistoryConstants.GameLevelsUp, result.Name);
         }
 
-
-// TODO: Add Survivor factory to allow easier test doubles to verify logic
         [Fact]
-        public void Foo(){
+        public void GameLogsWhenPlayerLevelsUpButGameDoesNot(){
             var sut = new Game();
             sut.FoundSurvivor(fixture.Create<string>());
             sut.FoundSurvivor(fixture.Create<string>());
@@ -233,6 +232,17 @@ namespace ZombieSurvial.Tests
             var result = sut.History.Pop();
             Assert.Equal(HistoryConstants.SurvivorLevelsUp, result.Name);
         }
-    }
 
+        [Fact]
+        public void GameLogsWhenLastPlayerHasDiedInTheGame()
+        {
+            var sut = new Game();
+            sut.FoundSurvivor(fixture.Create<string>());
+
+            sut.Survivors.First().Maim(4);
+
+            var result = sut.History.Pop();
+            Assert.Equal(HistoryConstants.GameOver, result.Name);
+        }
+    }
 }
