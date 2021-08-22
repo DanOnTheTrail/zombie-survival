@@ -15,7 +15,7 @@ namespace ZombieSurvival
         private IList<string> ItemsInHand;
         private IList<string> ItemsInReserve; 
         private int MaxReserveItemsBase;
-        
+
         public Level Level 
         { 
             get => Experience switch

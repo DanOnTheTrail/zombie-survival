@@ -62,3 +62,25 @@ The Game includes a running history of events that have taken place as it has be
 - [x] A Game's History notes that a Survivor levels up.
 - [x] A Game's History notes that the Game Level changes.
 - [x] A Game's History notes that the Game has ended when the last Survivor dies.
+
+## Step Six : Advancement
+
+As the Game proceeds, Survivors get better.
+
+- A set of potential **Skills** and the Levels where they are unlocked is called a **Skill Tree**.
+- Each Survivor begins with a Skill Tree.
+	- A Skill Tree consists of *potential* skills and *unlocked* skills.
+	- A Skill Tree begins with 1 *potential* skill at level Yellow, 2 at Orange, and 3 at Red.
+	- All Skill Trees have the same Yellow skill: "+1 Action".
+	- Each Survivor can have a Skill Tree unique to themselves.
+- When a Survivor first advances to a particular level they may unlock one available skill from that level.
+	- At level Yellow, only the "+1 Action" skill should ever be available, so it will be unlocked.
+- A Survivor who has "+1 Action" should have one additional Action (a total of 4).
+- Additional Skills: "+1 Die (Ranged)", "+1 Die (Melee)", "+1 Free Move Action", "Hoard", "Sniper", "Tough".
+	- A Survivor who has unlocked the "Hoard" skill can carry one additional piece of Equipment.
+- When a Survivor advanced beyond 43 experience, they remain Level Red but restart through the skill tree a second time.
+	- Upon reaching Yellow again (43 + 7 = 50 total), no more potential skills are available.
+	- Upon reaching Orange again (43 + 18 = 61 total), a second Orange skills is unlocked.
+	- Upon reaching Red again (43 + 43 = 86 total), a second Red skill is unlocked.
+- A Survivor can restart a second time, unlocking their last Red skill at (43 + 43 + 43 = 129 total) experience.
+- The Game History notes that a Survivor has acquired a new Skill.
