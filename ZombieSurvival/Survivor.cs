@@ -4,6 +4,24 @@ using System.Linq;
 
 namespace ZombieSurvival
 {
+
+    public class SkillTree
+    {
+        public IEnumerable<string> PotentialSkills(Level yellow)
+        {
+            var skills = new List<string>();
+
+            if (yellow == Level.Yellow) {
+                skills.Add(SkillsConstants.PlusOneAction);
+
+            }
+            else {
+                skills.Add("No Skill");
+            }
+
+            return skills;
+        }
+    }
     public class Survivor
     {
         public Game Game { get; }
@@ -15,6 +33,9 @@ namespace ZombieSurvival
         private IList<string> ItemsInHand;
         private IList<string> ItemsInReserve; 
         private int MaxReserveItemsBase;
+        public readonly SkillTree SkillTree;
+
+
 
         public Level Level 
         { 

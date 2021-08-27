@@ -215,5 +215,13 @@ namespace ZombieSurvial.Tests
 
             return new Survivor(name, game);
         }
+
+        [Fact]
+        public void SurvivorStartsWithSkillTree()
+        {
+            var sut = SutFactory();
+
+            var result = sut.SkillTree;
+        }
     }
 }
