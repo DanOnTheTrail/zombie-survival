@@ -7,20 +7,14 @@ namespace ZombieSurvival
 
     public class SkillTree
     {
-        public IEnumerable<string> PotentialSkills(Level yellow)
+        public IEnumerable<string> UnlockedSkills(Level level) => level switch
         {
-            var skills = new List<string>();
-
-            if (yellow == Level.Yellow) {
-                skills.Add(SkillsConstants.PlusOneAction);
-
-            }
-            else {
-                skills.Add("No Skill");
-            }
-
-            return skills;
-        }
+            Level.Blue => new List<string>() {},
+            Level.Yellow => new List<string>() { SkillsConstants.PlusOneAction },
+            Level.Orange => new List<string>() { "OrangeSkillOne", "OrangeSkillTwo" },
+            Level.Red => new List<string>() { "RedSkillOne", "RedSkillTwo", "RedSkillThree" },
+            _ => throw new ArgumentException("Invalid enum value for level", nameof(level)),
+        };
     }
     public class Survivor
     {
